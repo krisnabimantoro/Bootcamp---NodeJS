@@ -1,7 +1,5 @@
 module.exports = {
-  doMultiple: function tambah(x, y) {
+  doMultiple: function (x, y) {
     return x + y;
   },
-
 };
-
