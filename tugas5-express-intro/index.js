@@ -18,7 +18,7 @@ app.get("/hello", (req, res) => {
 
 app.get("/user", (req, res) => {
   res.json({
-    message: "Succes fetch message",
+    message: "Success fetch message",
     data: {
       id: 1,
       name: "Budi",
