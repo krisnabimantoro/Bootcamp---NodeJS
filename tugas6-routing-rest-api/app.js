@@ -62,7 +62,7 @@ app.get("/api/search", (req, res) => {
 
   const queryData = data.find((p) => p.name === query);
   if (queryData) {
-    res.json(queryData);
+    res.json({ search: query, result: queryData });
   } else {
     res.status(404).json({ message: "Product not found" });
   }
@@ -72,9 +72,9 @@ app.get("/api/search/:category", (req, res) => {
   const cat = req.params.category;
   const query = req.query.q;
 
-  const queryData = data.find((p) => p.name === query);
-  const categories = data.find((c) => c.category === cat);
-  if (queryData && categories) {
+  const categories = data.filter((c) => c.category === cat);
+  const queryData = categories.find((p) => p.name === query);
+  if (queryData ) {
     res.json(queryData);
   } else {
     res.status(404).json({ message: "Product not found" });
