@@ -34,6 +34,53 @@ app.post("/api/category", (req, res) => {
   res.status(201).json(newProduct);
 });
 
+app.put("/api/category/:id", (req, res) => {
+  const categoryId = parseInt(req.params.id);
+  const categoryIndex = category.findIndex((p) => p.id === categoryId);
+
+  if (categoryIndex !== -1) {
+    category[categoryIndex] = { id: categoryId, ...req.body };
+    res.json(category[categoryIndex]);
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
+
+app.delete("/api/category/:id", (req, res) => {
+  const categoryId = parseInt(req.params.id);
+  category = category.filter((p) => p.id !== categoryId);
+  res.status(204).send();
+});
+
+let data = [
+  { id: 1, name: "Laptop", category: "Elektronik" },
+  { id: 2, name: "Meja", category: "Perabotan" },
+];
+
+app.get("/api/search", (req, res) => {
+  const query = req.query.q;
+
+  const queryData = data.find((p) => p.name === query);
+  if (queryData) {
+    res.json(queryData);
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
+
+app.get("/api/search/:category", (req, res) => {
+  const cat = req.params.category;
+  const query = req.query.q;
+
+  const queryData = data.find((p) => p.name === query);
+  const categories = data.find((c) => c.category === cat);
+  if (queryData && categories) {
+    res.json(queryData);
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running at <http://localhost>:${port}`);
 });
