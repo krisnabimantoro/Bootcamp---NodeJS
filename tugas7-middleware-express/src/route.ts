@@ -12,11 +12,11 @@ router.post("/upload/single", single, async(req, res) => {
 
   if (file) {
     try {
-      const result = await handleUpload(file.path)
+      const result = await handleUpload(file.buffer)
       res.status(200).send(result)
       
     } catch (error) {
-      res.status(500).send({error:'File not uploaded'})
+       res.status(500).send({ error: 'Upload failed' });
     }
    
   }else{
@@ -30,7 +30,7 @@ router.post("/upload/multiple", multiple, async(req, res) => {
 
   if (files && files.length > 0) {
     try {
-      const uploadPromises = files.map(file => handleUpload(file.path));  
+      const uploadPromises = files.map(file => handleUpload(file.buffer));  
       const results = await Promise.all(uploadPromises);
       res.status(200).send(results);
     } catch (err) {
