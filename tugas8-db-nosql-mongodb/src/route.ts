@@ -1,17 +1,15 @@
-import  express  from "express";
+import express from "express";
 
-import categoryController from './controllers/category.controller';
-import productsController from './controllers/products.controller';
+import categoryController from "./controllers/category.controller";
+import productsController from "./controllers/products.controller";
 
-const router = express.Router()
-
+const router = express.Router();
 
 router.get("/products", productsController.findAll);
 router.post("/products", productsController.create);
 router.get("/products/:id", productsController.findOne);
 router.put("/products/:id", productsController.update);
 router.delete("/products/:id", productsController.delete);
-
 
 router.get("/category", categoryController.findAll);
 router.post("/category", categoryController.create);
