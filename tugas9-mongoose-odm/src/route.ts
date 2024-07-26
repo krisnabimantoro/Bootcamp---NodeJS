@@ -11,10 +11,10 @@ router.get("/products/:id", productsController.findOne);
 router.put("/products/:id", productsController.update);
 router.delete("/products/:id", productsController.delete);
 
-router.get("/category", categoryController.findAll);
-router.post("/category", categoryController.create);
-router.get("/category/:id", categoryController.findOne);
-router.put("/category/:id", categoryController.update);
-router.delete("/category/:id", categoryController.delete);
+router.get("/categories", categoryController.findAll);
+router.post("/categories", categoryController.create);
+router.get("/categories/:id", categoryController.findOne);
+router.put("/categories/:id", categoryController.update);
+router.delete("/categories/:id", categoryController.delete);
 
 export default router;

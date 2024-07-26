@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ProductsModel from "../models/products.controller";
+import ProductsModel from "../models/products.model";
 
 export default {
   async create(req: Request, res: Response) {
@@ -19,7 +19,7 @@ export default {
   },
   async findAll(req: Request, res: Response) {
     try {
-      const result = await ProductsModel.find();
+      const result = await ProductsModel.find().populate("category");
       res.status(200).json({
         data: result,
         message: "Success get all products",
@@ -51,13 +51,9 @@ export default {
   },
   async update(req: Request, res: Response) {
     try {
-      const result = await ProductsModel.findOneAndUpdate(
-        { _id: req.params.id },
-        req.body,
-        {
-          new: true,
-        }
-      );
+      const result = await ProductsModel.findOneAndUpdate({ _id: req.params.id }, req.body, {
+        new: true,
+      });
 
       res.status(200).json({
         data: result,
