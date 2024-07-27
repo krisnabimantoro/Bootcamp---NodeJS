@@ -49,8 +49,6 @@ ProductsSchema.pre("save", function (next) {
   next();
 });
 
-
-
 const ProductsModel = mongoose.model("Products", ProductsSchema);
 
 export default ProductsModel;
