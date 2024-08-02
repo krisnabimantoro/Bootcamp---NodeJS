@@ -1,6 +1,8 @@
 import express from "express";
+import authMiddleware from "./middlewares/auth.middleware";
 import categoryController from "./controllers/categories.controller";
 import productsController from "./controllers/products.controller";
+import authController from "./controllers/auth.controller";
 
 const router = express.Router();
 
@@ -15,5 +17,11 @@ router.post("/categories", categoryController.create);
 router.get("/categories/:id", categoryController.findOne);
 router.put("/categories/:id", categoryController.update);
 router.delete("/categories/:id", categoryController.delete);
+
+
+router.post("/auth/login", authController.login);
+router.post("/auth/register", authController.register);
+router.get("/auth/me", authController.me);
+router.put("/auth/profile", authMiddleware, authController.profile);
 
 export default router;
