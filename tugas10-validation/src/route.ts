@@ -17,4 +17,10 @@ router.get("/categories/:id", categoryController.findOne);
 router.put("/categories/:id", categoryController.update);
 router.delete("/categories/:id", categoryController.delete);
 
+
+router.post("/auth/login", authController.login);
+router.post("/auth/register", authController.register);
+router.get("/auth/me", authController.me);
+router.put("/auth/profile", authMiddleware, authController.profile);
+
 export default router;
