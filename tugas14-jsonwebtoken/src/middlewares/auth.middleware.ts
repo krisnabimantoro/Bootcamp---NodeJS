@@ -8,7 +8,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (!token) {
     return res.status(401).json({
-      message: "Unauthorized",
+      message: "Unauthorized token",
     });
   }
 
@@ -16,7 +16,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (prefix !== "Bearer" || !accessToken) {
     return res.status(401).json({
-      message: "Unauthorized",
+      message: "Unauthorized prefix",
     });
   }
 
@@ -24,7 +24,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (!user) {
     return res.status(401).json({
-      message: "Unauthorized",
+      message: "Unauthorized user",
     });
   }
 
