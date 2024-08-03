@@ -61,10 +61,6 @@ export default {
   async me(req: Request, res: Response) {
     const userId = (req as IReqUser).user.id;
     try {
-      if (!userId) {
-        console.error("User ID is missing in request");
-        return res.status(400).json({ message: "User ID is missing" });
-      }
       const user = await UserModel.findById(userId);
       res.status(200).json({
         message: "User details",
@@ -98,9 +94,13 @@ export default {
         throw new Error("Email and Password do not match");
       }
 
-      const token = jwt.sign({ id: userByEmail._id, role: userByEmail.role }, SECRET, {
-        expiresIn: "6h",
-      });
+      const token = jwt.sign(
+        { id: userByEmail._id, roles: userByEmail.roles },
+        SECRET,
+        {
+          expiresIn: "6h",
+        }
+      );
 
       res.json({
         message: "User logged in successfully",
@@ -123,7 +123,7 @@ export default {
     }
   },
   async register(req: Request, res: Response) {
-    const { fullName, username, email, password } = req.body;
+    const { fullName, username, email, password, roles = ["user"] } = req.body;
     try {
       await validateRegisterSchema.validate({
         fullName,
@@ -137,7 +137,7 @@ export default {
         username,
         email,
         password,
-        role: "user", // default role
+        roles,
       });
       res.json({
         message: "User registered successfully",
