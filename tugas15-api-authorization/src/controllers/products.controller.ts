@@ -77,6 +77,7 @@ export default {
       });
     }
   },
+  
   async findOne(req: Request, res: Response) {
     try {
       const result = await ProductsModel.findOne({
